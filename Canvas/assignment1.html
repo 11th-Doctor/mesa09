@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>長輩圖產生器</title>
+    </head>
+    <body>
+        <canvas id="theCanvas" width="400" height="300" style="border:1px solid black"></canvas>
+        <form id="theForm">
+            <input type="text" id="words"/>
+            <input type="submit" value="Submit"/>
+        </form>
+        <img id="imgCat" src="cat.jpeg" style="display: none;"/>
+        <script>
+            window.onload = init;
+            
+            function init() {
+                
+                var theCanvas = document.getElementById("theCanvas");
+                var ctx = theCanvas.getContext("2d");
+                var theForm = document.getElementById("theForm");
+                var input = document.getElementById("words");
+                var imgCat = document.getElementById("imgCat");
+                
+                ctx.drawImage(imgCat,0,0,400,300);
+                
+                //ctx.arc(60,240,12,0,2 * Math.PI);
+                //ctx.stroke();
+                
+                theForm.onsubmit = function(event) {
+                    ctx.save();
+                    ctx.drawImage(imgCat,0,0,400,300);
+                    
+                    ctx.rotate((Math.PI / 180) * 15);
+                    
+                    ctx.font = "30px Arial italic";
+                    ctx.textBaseline = "top";
+                    ctx.textAlign = "left";
+                    ctx.fillStyle = "#ffff66";
+                    
+                    ctx.fillText(input.value,30,20);//60,230
+                    ctx.restore();
+                    event.preventDefault();
+                }
+            }
+        </script>
+    </body>
+</html>
